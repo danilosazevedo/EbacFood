@@ -2,6 +2,11 @@ import logo from '../../Assets/Imgs/logo.png'
 import imgPerfil from '../../Assets/Imgs/perfil.png'
 import pizza from '../../Assets/Imgs/pizza.png'
 import cover from '../../Assets/Imgs/Rectangle.png'
+import Cart from '../../Components/Cart'
+import Confirmation from '../../Components/Confirmation'
+import Entrega from '../../Components/Entrega'
+import ItemPerfil from '../../Components/ItemPerfil'
+import Payment from '../../Components/Payment'
 
 import { Cover, Hero, HeroImage, Product, ProductList } from './styles'
 
@@ -83,6 +88,11 @@ const perfil = () => {
           <button>Adicionar ao carrinho</button>
         </Product>
       </ProductList>
+      <Cart />
+      <Entrega />
+      <Payment />
+      <Confirmation />
+      <ItemPerfil />
     </>
   )
 }
