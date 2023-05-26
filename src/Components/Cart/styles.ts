@@ -8,12 +8,20 @@ export const CartContainer = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
-  display: none;
+  display: flex;
   justify-content: flex-end;
   z-index: 1;
 
   &.is-open {
     display: flex;
+  }
+
+  #total {
+    color: ${cores.fundo};
+    font-weight: bold;
+    span {
+      margin-left: 50%;
+    }
   }
 `
 export const Overlay = styled.div`
@@ -58,6 +66,7 @@ export const CardItem = styled.li`
   width: 98%;
   height: 100px;
   background-color: ${cores.fundo2};
+  color: ${cores.principal};
   margin-bottom: 16px;
 
   img {
@@ -78,5 +87,85 @@ export const CardItem = styled.li`
     border: none;
     cursor: pointer;
     margin: 76px 8px 8px 40px;
+  }
+`
+export const DeliveryInfo = styled.section`
+  color: ${cores.fundo};
+  font-weight: bold;
+
+  input {
+    margin-bottom: 18px;
+    width: 100%;
+    height: 32px;
+    background-color: ${cores.fundo2};
+    border: none;
+  }
+
+  span {
+    margin-right: 43%;
+  }
+
+  #cep,
+  #number {
+    width: 145px;
+  }
+
+  #number {
+    margin-left: 34px;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+`
+export const PaymentInfo = styled.section`
+  color: ${cores.fundo};
+  font-weight: bold;
+
+  input {
+    margin-bottom: 18px;
+    width: 100%;
+    height: 32px;
+    background-color: ${cores.fundo2};
+    border: none;
+  }
+
+  > span {
+    margin-right: 35%;
+  }
+
+  #cvvcard {
+    width: 30%;
+  }
+
+  #numbercard {
+    margin-right: 10%;
+    width: 60%;
+  }
+
+  #ano {
+    width: 40%;
+  }
+
+  #mes {
+    margin-right: 20%;
+    width: 40%;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+`
+export const Confirmation = styled.section`
+  color: ${cores.fundo};
+  font-weight: bold;
+
+  p {
+    font-weight: normal;
+    text-align: justify;
+  }
+
+  button {
+    margin-top: 8px;
   }
 `
