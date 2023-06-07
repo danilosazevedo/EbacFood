@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import vetor from '../../Assets/Imgs/Vector.png'
+import { Link } from 'react-router-dom'
 
 import { cores } from '../../styles'
 
@@ -19,6 +20,12 @@ export const Hero = styled.div`
     margin-left: 86px;
   }
 `
+
+export const SpanHome = styled(Link)`
+  text-decoration: none;
+  color: ${cores.principal};
+`
+
 export const HeroImage = styled.div`
   img {
     width: 100%;
@@ -60,6 +67,10 @@ export const Product = styled.div`
   height: 330px;
   background-color: ${cores.principal};
   color: #fff;
+  img {
+    width: 304px;
+    height: 167px;
+  }
 
   h3,
   p {

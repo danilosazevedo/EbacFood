@@ -1,89 +1,69 @@
+import React, { MouseEvent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { open, openItemDetail } from '../../store/reducers/cart'
 import logo from '../../Assets/Imgs/logo.png'
-import imgPerfil from '../../Assets/Imgs/perfil.png'
-import pizza from '../../Assets/Imgs/pizza.png'
 import cover from '../../Assets/Imgs/Rectangle.png'
 import Cart from '../../Components/Cart'
 import ItemPerfil from '../../Components/ItemPerfil'
 
-import { Cover, Hero, HeroImage, Product, ProductList } from './styles'
+import { useParams } from 'react-router-dom'
 
-const perfil = () => {
+import {
+  Cover,
+  Hero,
+  HeroImage,
+  Product,
+  ProductList,
+  SpanHome
+} from './styles'
+import { useGetCardapioQuery } from '../../Services/api'
+import { Cardapio } from '../Home'
+
+export type Props = {
+  item: Cardapio
+}
+
+const Perfil = () => {
+  const { id } = useParams()
+  const { data: perfil } = useGetCardapioQuery(id!)
+
+  const cardapio = perfil?.cardapio as unknown as Cardapio[]
+
+  const dispatch = useDispatch()
+
+  const getDescricao = (descricao: string) => {
+    if (descricao.length > 95) {
+      return descricao.slice(0, 100) + '...'
+    }
+    return descricao
+  }
+
   return (
     <>
       <Hero>
-        <span>Restaurantes</span>
+        <SpanHome to={`/`}>Restaurantes</SpanHome>
         <img src={logo} alt="" />
-        <span>0 produto(s) no carrinho</span>
+        <span onClick={() => dispatch(open())}>0 produto(s) no carrinho</span>
       </Hero>
       <HeroImage>
         <Cover>
           <img src={cover} alt="" />
         </Cover>
-        <span>Italiana</span>
-        <h2>La Dolce Vita Trattoria</h2>
-        <img src={imgPerfil} alt="" />
+        <span>{perfil?.tipo}</span>
+        <h2>{perfil?.titulo}</h2>
+        <img src={perfil?.capa} alt="" />
       </HeroImage>
       <ProductList className="container">
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
-        <Product>
-          <img src={pizza} alt="" />
-          <h3>Pizza Marguerita</h3>
-          <p>
-            A clássica Marguerita: molho de tomate suculento, mussarela
-            derretida, manjericão fresco e um toque de azeite. Sabor e
-            simplicidade!
-          </p>
-          <button>Adicionar ao carrinho</button>
-        </Product>
+        {cardapio?.map((c) => (
+          <Product key={c.id}>
+            <img src={c.foto} alt="" />
+            <h3>{c.nome}</h3>
+            <p>{getDescricao(c.descricao)}</p>
+            <button onClick={() => dispatch(openItemDetail())}>
+              Adicionar ao carrinho
+            </button>
+          </Product>
+        ))}
       </ProductList>
       <Cart />
       <ItemPerfil />
@@ -91,4 +71,4 @@ const perfil = () => {
   )
 }
 
-export default perfil
+export default Perfil

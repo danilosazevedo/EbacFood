@@ -8,7 +8,7 @@ export const CartContainer = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   z-index: 1;
 
@@ -89,9 +89,21 @@ export const CardItem = styled.li`
     margin: 76px 8px 8px 40px;
   }
 `
+export const CartInfo = styled.section`
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
+`
 export const DeliveryInfo = styled.section`
   color: ${cores.fundo};
   font-weight: bold;
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
 
   input {
     margin-bottom: 18px;
@@ -121,6 +133,11 @@ export const DeliveryInfo = styled.section`
 export const PaymentInfo = styled.section`
   color: ${cores.fundo};
   font-weight: bold;
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
 
   input {
     margin-bottom: 18px;
@@ -159,6 +176,11 @@ export const PaymentInfo = styled.section`
 export const Confirmation = styled.section`
   color: ${cores.fundo};
   font-weight: bold;
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
 
   p {
     font-weight: normal;

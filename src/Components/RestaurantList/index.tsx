@@ -1,113 +1,44 @@
-import rest1 from '../../Assets/Imgs/Rest.png'
 import star from '../../Assets/Imgs/star.png'
-import { RestaurantCard, Restaurants } from './styles'
+import { Button, RestaurantCard, Restaurants } from './styles'
+
+import { useGetRestaurantsQuery } from '../../Services/api'
+import { Restaurant } from '../../Pages/Home'
+
+export type Props = {
+  title: string
+  restaurants: Restaurant[]
+  id: string
+}
 
 const RestaurantList = () => {
+  const { data: restaurante } = useGetRestaurantsQuery()
+
+  const getDescricao = (descricao: string) => {
+    if (descricao.length > 95) {
+      return descricao.slice(0, 200) + '...'
+    }
+    return descricao
+  }
+
   return (
     <div className="container">
       <Restaurants>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
-        <RestaurantCard>
-          <img src={rest1} alt="" />
-          <div>
-            <h2>Hioki Sushi</h2>
-            <span>
-              4.9
-              <img src={star} alt="" />
-            </span>
-          </div>
-          <p>
-            Peça já o melhor da culinária japonesa no conforto da sua casa!
-            Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis.
-            Entrega rápida, embalagens cuidadosas e qualidade
-            garantida.Experimente o Japão sem sair do lar com nosso delivery!
-          </p>
-          <button>Saiba mais</button>
-        </RestaurantCard>
+        {restaurante?.map((rest) => (
+          <li key={rest.id}>
+            <RestaurantCard>
+              <img id="capa" src={rest.capa} alt="" />
+              <div>
+                <h2>{rest.titulo}</h2>
+                <span>
+                  {rest.avaliacao}
+                  <img src={star} alt="" />
+                </span>
+              </div>
+              <p>{getDescricao(rest.descricao)}</p>
+              <Button to={`perfil/${rest.id}`}>Saiba mais</Button>
+            </RestaurantCard>
+          </li>
+        ))}
       </Restaurants>
     </div>
   )

@@ -1,6 +1,18 @@
+import { RootReducer } from '../../store'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  close,
+  delivery,
+  payment,
+  confirmation,
+  backCart,
+  backDelivery
+} from '../../store/reducers/cart'
+
 import {
   CardItem,
   CartContainer,
+  CartInfo,
   Confirmation,
   DeliveryInfo,
   Overlay,
@@ -11,11 +23,16 @@ import {
 import pizza from '../../Assets/Imgs/pizza.png'
 
 const Cart = () => {
+  const { isOpen, isCart, isDelivery, isPayment, isConfirmation } = useSelector(
+    (state: RootReducer) => state.cart
+  )
+  const dispatch = useDispatch()
+
   return (
-    <CartContainer style={{ display: 'flex' }}>
-      <Overlay />
+    <CartContainer className={isOpen ? 'is-open' : ''}>
+      <Overlay onClick={() => dispatch(close())} />
       <SideBar>
-        <section id="cart" style={{ display: 'block' }}>
+        <CartInfo id="cart" className={isCart ? 'is-open' : ''}>
           <ul>
             <CardItem>
               <img src={pizza} alt="" />
@@ -44,10 +61,12 @@ const Cart = () => {
           </ul>
           <div id="total">
             Valor Total <span>R$ 182,70</span>
-            <button>Continuar com a entrega</button>
+            <button onClick={() => dispatch(delivery())}>
+              Continuar com a entrega
+            </button>
           </div>
-        </section>
-        <DeliveryInfo id="delivery" style={{ display: 'none' }}>
+        </CartInfo>
+        <DeliveryInfo id="delivery" className={isDelivery ? 'is-open' : ''}>
           Entrega <br />
           <br />
           Quem irá receber <br />
@@ -63,10 +82,14 @@ const Cart = () => {
           <br />
           Complemento <br />
           <input type="text" />
-          <button>Continuar com o pagamento</button>
-          <button>Voltar para o carrinho</button>
+          <button onClick={() => dispatch(payment())}>
+            Continuar com o pagamento
+          </button>
+          <button onClick={() => dispatch(backCart())}>
+            Voltar para o carrinho
+          </button>
         </DeliveryInfo>
-        <PaymentInfo id="delivery" style={{ display: 'none' }}>
+        <PaymentInfo id="delivery" className={isPayment ? 'is-open' : ''}>
           Pagamento - Valor a pagar R$ {'190,00'} <br />
           <br />
           Nome do Cartão <br />
@@ -81,10 +104,14 @@ const Cart = () => {
           <input id="mes" type="text" />
           <input id="ano" type="text" />
           <br />
-          <button>Finalizar Pagamento</button>
-          <button>Voltar para o endereço</button>
+          <button onClick={() => dispatch(confirmation())}>
+            Finalizar Pagamento
+          </button>
+          <button onClick={() => dispatch(backDelivery())}>
+            Voltar para o endereço
+          </button>
         </PaymentInfo>
-        <Confirmation id="delivery" style={{ display: 'none' }}>
+        <Confirmation id="delivery" className={isConfirmation ? 'is-open' : ''}>
           Pedido Realizado - {'Numero'} <br />
           <br />
           <p>
@@ -99,7 +126,7 @@ const Cart = () => {
             Esperamos que desfrute de uma deliciosa e agradável experiência
             gastronômica. Bom apetite!
           </p>
-          <button>Concluir</button>
+          <button onClick={() => dispatch(close())}>Concluir</button>
         </Confirmation>
       </SideBar>
     </CartContainer>

@@ -1,14 +1,25 @@
 import { ModalContainer, ModalItem, Overlay } from './styles'
 import pizza from '../../Assets/Imgs/pizza.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
+import { closeItemDetail } from '../../store/reducers/cart'
 
 const ItemPerfil = () => {
+  const ItemPerfilOpen = useSelector(
+    (state: RootReducer) => state.cart.isOpenItemDetail
+  )
+  const item = useSelector((state: RootReducer) => state.cart.cartTemp)
+  console.log(item)
+
+  const dispatch = useDispatch()
+
   return (
-    <ModalContainer>
-      <Overlay />
+    <ModalContainer className={ItemPerfilOpen ? 'is-open' : ''}>
+      <Overlay onClick={() => dispatch(closeItemDetail())} />
       <ModalItem>
         <img src={pizza} alt="" />
         <div>
-          <button id="close" />
+          <button onClick={() => dispatch(closeItemDetail())} id="close" />
           <h2>Pizza Marguerita</h2>
           <p>
             A pizza Margherita é uma pizza clássica da culinária italiana,

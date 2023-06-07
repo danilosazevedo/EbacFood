@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
+import { Link } from 'react-router-dom'
 
 export const Restaurants = styled.div`
   margin-top: 50px;
@@ -10,11 +11,18 @@ export const Restaurants = styled.div`
 `
 
 export const RestaurantCard = styled.div`
-  width: 472px;
-  height: 420px;
   border: 2px solid;
-  align-items: center;
-  text-align: justify;
+  li {
+    width: 472px;
+    height: 420px;
+    align-items: center;
+    text-align: justify;
+  }
+
+  #capa {
+    height: 217px;
+    width: 100%;
+  }
 
   div {
     display: flex;
@@ -41,13 +49,17 @@ export const RestaurantCard = styled.div`
   p {
     margin: 8px;
   }
-
-  button {
-    margin: 8px;
-    width: 82px;
-    height: 24px;
-    background-color: ${cores.principal};
-    color: #fff;
-    border: none;
-  }
+`
+export const Button = styled(Link)`
+  display: flex;
+  margin: 8px;
+  width: 100px;
+  align-items: center;
+  padding-left: 8px;
+  height: 24px;
+  background-color: ${cores.principal};
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 `
