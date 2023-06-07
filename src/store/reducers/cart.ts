@@ -30,11 +30,11 @@ const cartSlice = createSlice({
     add: (state, action: PayloadAction<Cardapio>) => {
       state.items.push(action.payload)
     },
-    openItemDetail: (state) => {
-      // const itemTemp = action.payload
+    openItemDetail: (state, action: PayloadAction<Cardapio>) => {
+      const itemTemp = action.payload
       state.isOpenItemDetail = true
       state.cartTemp.pop()
-      // state.cartTemp.push(itemTemp)
+      state.cartTemp.push(itemTemp)
     },
     closeItemDetail: (state) => {
       state.isOpenItemDetail = false

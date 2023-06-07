@@ -38,6 +38,10 @@ const Perfil = () => {
     return descricao
   }
 
+  const itemDetail = ({ item }: Props) => {
+    dispatch(openItemDetail(item))
+  }
+
   return (
     <>
       <Hero>
@@ -55,13 +59,11 @@ const Perfil = () => {
       </HeroImage>
       <ProductList className="container">
         {cardapio?.map((c) => (
-          <Product key={c.id}>
+          <Product key={c.id} onClick={itemDetail}>
             <img src={c.foto} alt="" />
             <h3>{c.nome}</h3>
             <p>{getDescricao(c.descricao)}</p>
-            <button onClick={() => dispatch(openItemDetail())}>
-              Adicionar ao carrinho
-            </button>
+            <button>Adicionar ao carrinho</button>
           </Product>
         ))}
       </ProductList>
