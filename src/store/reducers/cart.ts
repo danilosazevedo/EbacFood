@@ -35,6 +35,7 @@ const cartSlice = createSlice({
       state.isOpenItemDetail = true
       state.cartTemp.pop()
       state.cartTemp.push(itemTemp)
+      console.log(itemTemp)
     },
     closeItemDetail: (state) => {
       state.isOpenItemDetail = false

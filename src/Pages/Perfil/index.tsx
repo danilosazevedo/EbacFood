@@ -23,23 +23,18 @@ export type Props = {
   item: Cardapio
 }
 
-const Perfil = () => {
+const Perfil = ({ item }: Props) => {
+  const dispatch = useDispatch()
   const { id } = useParams()
   const { data: perfil } = useGetCardapioQuery(id!)
 
   const cardapio = perfil?.cardapio as unknown as Cardapio[]
-
-  const dispatch = useDispatch()
 
   const getDescricao = (descricao: string) => {
     if (descricao.length > 95) {
       return descricao.slice(0, 100) + '...'
     }
     return descricao
-  }
-
-  const itemDetail = ({ item }: Props) => {
-    dispatch(openItemDetail(item))
   }
 
   return (
@@ -59,11 +54,13 @@ const Perfil = () => {
       </HeroImage>
       <ProductList className="container">
         {cardapio?.map((c) => (
-          <Product key={c.id} onClick={itemDetail}>
+          <Product key={c.id}>
             <img src={c.foto} alt="" />
             <h3>{c.nome}</h3>
             <p>{getDescricao(c.descricao)}</p>
-            <button>Adicionar ao carrinho</button>
+            <button onClick={() => dispatch(openItemDetail(item))}>
+              Adicionar ao carrinho
+            </button>
           </Product>
         ))}
       </ProductList>

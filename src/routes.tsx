@@ -10,7 +10,21 @@ const Rotas = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/perfil/:id" element={<Perfil />} />
+      <Route
+        path="/perfil/:id"
+        element={
+          <Perfil
+            item={{
+              id: 0,
+              nome: '',
+              foto: '',
+              preco: 0,
+              descricao: '',
+              porcao: ''
+            }}
+          />
+        }
+      />
     </Routes>
   )
 }

@@ -2,14 +2,17 @@ import { ModalContainer, ModalItem, Overlay } from './styles'
 import pizza from '../../Assets/Imgs/pizza.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { closeItemDetail } from '../../store/reducers/cart'
+import { closeItemDetail, openItemDetail } from '../../store/reducers/cart'
+import { Cardapio } from '../../Pages/Home'
+
+export type Props = {
+  item: Cardapio
+}
 
 const ItemPerfil = () => {
   const ItemPerfilOpen = useSelector(
     (state: RootReducer) => state.cart.isOpenItemDetail
   )
-  const item = useSelector((state: RootReducer) => state.cart.cartTemp)
-  console.log(item)
 
   const dispatch = useDispatch()
 
