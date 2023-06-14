@@ -1,4 +1,3 @@
-import React, { MouseEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { open, openItemDetail } from '../../store/reducers/cart'
 import logo from '../../Assets/Imgs/logo.png'
@@ -18,12 +17,9 @@ import {
 } from './styles'
 import { useGetCardapioQuery } from '../../Services/api'
 import { Cardapio } from '../Home'
+import { RootReducer } from '../../store'
 
-export type Props = {
-  item: Cardapio
-}
-
-const Perfil = ({ item }: Props) => {
+const PerfilRestaurant = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const { data: perfil } = useGetCardapioQuery(id!)
@@ -37,12 +33,16 @@ const Perfil = ({ item }: Props) => {
     return descricao
   }
 
+  const itemsCart = useSelector((state: RootReducer) => state.cart.items)
+
   return (
     <>
       <Hero>
         <SpanHome to={`/`}>Restaurantes</SpanHome>
         <img src={logo} alt="" />
-        <span onClick={() => dispatch(open())}>0 produto(s) no carrinho</span>
+        <span onClick={() => dispatch(open())}>
+          {itemsCart.length} produto(s) no carrinho
+        </span>
       </Hero>
       <HeroImage>
         <Cover>
@@ -53,11 +53,11 @@ const Perfil = ({ item }: Props) => {
         <img src={perfil?.capa} alt="" />
       </HeroImage>
       <ProductList className="container">
-        {cardapio?.map((c) => (
-          <Product key={c.id}>
-            <img src={c.foto} alt="" />
-            <h3>{c.nome}</h3>
-            <p>{getDescricao(c.descricao)}</p>
+        {cardapio?.map((item) => (
+          <Product key={item.id}>
+            <img src={item.foto} alt="" />
+            <h3>{item.nome}</h3>
+            <p>{getDescricao(item.descricao)}</p>
             <button onClick={() => dispatch(openItemDetail(item))}>
               Adicionar ao carrinho
             </button>
@@ -65,9 +65,18 @@ const Perfil = ({ item }: Props) => {
         ))}
       </ProductList>
       <Cart />
-      <ItemPerfil />
+      <ItemPerfil
+        item={{
+          id: 0,
+          nome: '',
+          foto: '',
+          preco: 0,
+          descricao: '',
+          porcao: ''
+        }}
+      />
     </>
   )
 }
 
-export default Perfil
+export default PerfilRestaurant

@@ -41,6 +41,11 @@ export const SideBar = styled.aside`
   padding-right: 16px;
   max-width: 360px;
   width: 100%;
+  padding-bottom: 16px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 
   > div {
     span {
@@ -63,11 +68,12 @@ export const SideBar = styled.aside`
 `
 export const CardItem = styled.li`
   display: flex;
-  width: 98%;
+  width: 100%;
   height: 100px;
   background-color: ${cores.fundo2};
   color: ${cores.principal};
   margin-bottom: 16px;
+  font-weight: bold;
 
   img {
     width: 90px;
@@ -79,14 +85,14 @@ export const CardItem = styled.li`
     margin: 8px 0 32px;
   }
 
-  #removeCart {
+  button {
     background-image: url(${remove});
-    background-color: transparent;
+    position: absolute;
+    cursor: pointer;
     width: 16px;
     height: 16px;
-    border: none;
-    cursor: pointer;
-    margin: 76px 8px 8px 40px;
+    margin-top: 80px;
+    margin-left: 300px;
   }
 `
 export const CartInfo = styled.section`

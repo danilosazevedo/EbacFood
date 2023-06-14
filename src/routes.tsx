@@ -1,30 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Perfil from './Pages/Perfil'
-import Home, { Cardapio } from './Pages/Home'
-import { useSelector } from 'react-redux'
-import { RootReducer } from './store'
+import Home from './Pages/Home'
+import PerfilRestaurant from './Pages/Perfil'
 
 const Rotas = () => {
-  const item = useSelector((state: RootReducer) => state.cart.cartTemp)
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route
-        path="/perfil/:id"
-        element={
-          <Perfil
-            item={{
-              id: 0,
-              nome: '',
-              foto: '',
-              preco: 0,
-              descricao: '',
-              porcao: ''
-            }}
-          />
-        }
-      />
+      <Route path="/perfil/:id" element={<PerfilRestaurant />} />
     </Routes>
   )
 }

@@ -6,7 +6,8 @@ import {
   payment,
   confirmation,
   backCart,
-  backDelivery
+  backDelivery,
+  remove
 } from '../../store/reducers/cart'
 
 import {
@@ -20,13 +21,27 @@ import {
   SideBar
 } from './styles'
 
-import pizza from '../../Assets/Imgs/pizza.png'
-
 const Cart = () => {
   const { isOpen, isCart, isDelivery, isPayment, isConfirmation } = useSelector(
     (state: RootReducer) => state.cart
   )
   const dispatch = useDispatch()
+
+  const itemsCart = useSelector((state: RootReducer) => state.cart.items)
+  console.log(itemsCart)
+
+  const formataPreco = (preco = 0) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(preco)
+  }
+
+  const getTotalPrice = () => {
+    return itemsCart.reduce((acumulador, valorAtual) => {
+      return acumulador + valorAtual.preco
+    }, 0)
+  }
 
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
@@ -34,33 +49,22 @@ const Cart = () => {
       <SideBar>
         <CartInfo id="cart" className={isCart ? 'is-open' : ''}>
           <ul>
-            <CardItem>
-              <img src={pizza} alt="" />
-              <div>
-                <h3>Pizza Marguerita</h3>
-                <span>R$ 60,90</span>
-              </div>
-              <button id="removeCart" />
-            </CardItem>
-            <CardItem>
-              <img src={pizza} alt="" />
-              <div>
-                <h3>Pizza Marguerita</h3>
-                <span>R$ 60,90</span>
-              </div>
-              <button id="removeCart" />
-            </CardItem>
-            <CardItem>
-              <img src={pizza} alt="" />
-              <div>
-                <h3>Pizza Marguerita</h3>
-                <span>R$ 60,90</span>
-              </div>
-              <button id="removeCart" />
-            </CardItem>
+            {itemsCart.map((i) => (
+              <CardItem key={i.id}>
+                <img src={i.foto} alt="" />
+                <div>
+                  <h3>{i.nome}</h3>
+                  <span>R$ {i.preco}</span>
+                </div>
+                <button
+                  onClick={() => dispatch(remove(i.id))}
+                  id="removeCart"
+                />
+              </CardItem>
+            ))}
           </ul>
           <div id="total">
-            Valor Total <span>R$ 182,70</span>
+            Valor Total <span>{formataPreco(getTotalPrice())}</span>
             <button onClick={() => dispatch(delivery())}>
               Continuar com a entrega
             </button>
@@ -90,7 +94,7 @@ const Cart = () => {
           </button>
         </DeliveryInfo>
         <PaymentInfo id="delivery" className={isPayment ? 'is-open' : ''}>
-          Pagamento - Valor a pagar R$ {'190,00'} <br />
+          Pagamento - Valor a pagar {formataPreco(getTotalPrice())} <br />
           <br />
           Nome do Cartão <br />
           <input type="text" />
