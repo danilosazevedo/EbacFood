@@ -92,6 +92,14 @@ const cartSlice = createSlice({
       state.isCart = false
       state.isPayment = false
       state.isConfirmation = true
+    },
+    concluir: (state) => {
+      state.isDelivery = false
+      state.isCart = false
+      state.isPayment = false
+      state.isConfirmation = false
+      state.items = []
+      state.isOpen = false
     }
   }
 })
@@ -107,6 +115,7 @@ export const {
   openItemDetail,
   closeItemDetail,
   add,
-  remove
+  remove,
+  concluir
 } = cartSlice.actions
 export default cartSlice.reducer

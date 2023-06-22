@@ -123,6 +123,9 @@ export const DeliveryInfo = styled.section`
     margin-right: 43%;
   }
 
+  #labelCep {
+    margin-right: 45%;
+  }
   #cep,
   #number {
     width: 145px;
@@ -137,6 +140,14 @@ export const DeliveryInfo = styled.section`
   }
 `
 export const PaymentInfo = styled.section`
+  div {
+    display: flex;
+
+    label {
+      justify-content: space-between;
+      display: flex;
+    }
+  }
   color: ${cores.fundo};
   font-weight: bold;
   display: none;
@@ -157,13 +168,21 @@ export const PaymentInfo = styled.section`
     margin-right: 35%;
   }
 
-  #cvvcard {
+  #cardCode {
     width: 30%;
   }
 
-  #numbercard {
+  #cardNumber {
     margin-right: 10%;
-    width: 60%;
+    width: 70%;
+  }
+
+  #labelCVV {
+    margin-left: 55%;
+  }
+
+  #labelMes {
+    margin-right: 50%;
   }
 
   #ano {
