@@ -19,6 +19,10 @@ export const Hero = styled.div`
     height: 58px;
     margin-left: 86px;
   }
+
+  span {
+    cursor: pointer;
+  }
 `
 
 export const SpanHome = styled(Link)`
